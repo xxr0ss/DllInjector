@@ -130,13 +130,14 @@ BOOL InjByAddingNewSection(LPSTR targetFile, LPSTR dllname, LPSTR newSecName)
 		return FALSE;
 	}
 	VirtualProtectEx(pi.hProcess, imageBase, image.m_pOptHeader->SizeOfHeaders, oldProtect, &oldProtect);
-
+	printf("[*] 已写入修改后的PE头\n");
 
 	result = WriteProcessMemory(pi.hProcess, imageBase + newlyAddedSecHeader->VirtualAddress, secWriteBuffer, newSecWriteSize, &dwIoCnt);
 	if (!result) {
 		printf("[-] 向目标进程写入新输入表失败！%d\n", GetLastError());
 		return FALSE;
 	}
+	printf("[*] 已写入新输入表\n");
 
 
 
