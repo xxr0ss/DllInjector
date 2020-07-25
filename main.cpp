@@ -4,7 +4,6 @@
 
 #pragma comment(lib, "psapi.lib")
 
-DWORD ProcesstoPid(char *Processname);
 ULONG_PTR FindImageBase(HANDLE hProc, LPSTR lpCommandline);
 
 int main(int argc, char *argv[])
@@ -14,6 +13,10 @@ int main(int argc, char *argv[])
     //printf("进程注入模式[1-3]:");
     //scanf("%d", &mode);
     //mode--;
+    if (argc < 2) {
+        printf("usage: ./DllInjector.exe targetFile dllName");
+        return 0;
+    }
 
     BOOL injResult;
     switch (mode)

@@ -112,8 +112,11 @@ BOOL InjByAddingNewSection(LPSTR targetFile, LPSTR dllname, LPSTR newSecName)
 	image.m_pImpDataDir->Size = newIIDsSize;
 	image.m_pImpDataDir->VirtualAddress = newlyAddedSecHeader->VirtualAddress;
 
-	image.m_pOptHeader->DataDirectory[IMAGE_DIRECTORY_ENTRY_BOUND_IMPORT].VirtualAddress = 0;
-	image.m_pOptHeader->DataDirectory[IMAGE_DIRECTORY_ENTRY_BOUND_IMPORT].Size = 0;
+	if (image.m_pOptHeader->DataDirectory[IMAGE_DIRECTORY_ENTRY_BOUND_IMPORT].VirtualAddress != 0) {
+		printf("[*] 存在Bound Import Table, 将清空绑定信息\n");
+		image.m_pOptHeader->DataDirectory[IMAGE_DIRECTORY_ENTRY_BOUND_IMPORT].VirtualAddress = 0;
+		image.m_pOptHeader->DataDirectory[IMAGE_DIRECTORY_ENTRY_BOUND_IMPORT].Size = 0;
+	}
 	printf("[*] PE头更新完毕，准备写入进程\n");
 
 	DWORD oldProtect = 0;
@@ -138,7 +141,6 @@ BOOL InjByAddingNewSection(LPSTR targetFile, LPSTR dllname, LPSTR newSecName)
 		return FALSE;
 	}
 	printf("[*] 已写入新输入表\n");
-
 
 
 

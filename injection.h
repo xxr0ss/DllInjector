@@ -1,33 +1,6 @@
 #include "Image.h"
 #include <Windows.h>
 
-typedef BOOL(WINAPI *PDETOUR_CREATE_PROCESS_ROUTINE)(
-    LPCSTR lpApplicationName,
-    LPSTR lpCommandLine,
-    LPSECURITY_ATTRIBUTES lpProcessAttributes,
-    LPSECURITY_ATTRIBUTES lpThreadAttributes,
-    BOOL bInheritHandles,
-    DWORD dwCreationFlags,
-    LPVOID lpEnvironment,
-    LPCSTR lpCurrentDirectory,
-    LPSTARTUPINFOA lpStartupInfo,
-    LPPROCESS_INFORMATION lpProcessInformation);
-
-BOOL DetourCreateProcessWithDllA(
-    LPCSTR lpApplicationName,
-    LPSTR lpCommandLine,
-    LPSECURITY_ATTRIBUTES lpProcessAttributes,
-    LPSECURITY_ATTRIBUTES lpThreadAttributes,
-    BOOL bInheritHandles,
-    DWORD dwCreationFlags,
-    LPVOID lpEnvironment,
-    LPCSTR lpCurrentDirectory,
-    LPSTARTUPINFOA lpStartupInfo,
-    LPPROCESS_INFORMATION lpProcessInformation,
-    // extra
-    LPCSTR lpDllName,
-    PDETOUR_CREATE_PROCESS_ROUTINE pfCreateProcess);
-
 // BOOL CreateProcessA(
 //   LPCSTR                lpApplicationName,
 //   LPSTR                 lpCommandLine,
